@@ -1,0 +1,25 @@
+.card {
+    background-color: orange;
+    border: 3px solid orange;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    min-width: 300px;
+    min-height: 300px;
+}
+
+.card .title{
+    padding: 10px 0px;
+    display: flex;
+    justify-content: center;
+}
+
+.card .content{
+    flex: 1;
+    background-color: #fff;
+    color: #000;
+    padding: 20px;
+    text-align: center;
+}

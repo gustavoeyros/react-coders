@@ -1,0 +1,12 @@
+body{
+    background-color: #255957;
+    text-align: center;
+    color: #fff;
+}
+
+.container__cards{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
