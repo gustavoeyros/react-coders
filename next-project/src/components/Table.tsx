@@ -1,10 +1,12 @@
+"use client";
+
 import Client from "@/core/Client";
 import { EditIcon, TrashIcon } from "./Icons";
 
 interface ITableProps {
   clients: Client[];
   selectedClient?: (client: Client) => void;
-  deletedClient?: () => void;
+  deletedClient?: (client: Client) => void;
 }
 
 export default function Table({
@@ -45,7 +47,10 @@ export default function Table({
                   false
                 )}
                 {deletedClient ? (
-                  <button className="flex justify-center items-center text-red-600 rounded-full p-2 m-1 hover:bg-purple-50">
+                  <button
+                    onClick={() => deletedClient(client)}
+                    className="flex justify-center items-center text-red-600 rounded-full p-2 m-1 hover:bg-purple-50"
+                  >
                     {TrashIcon}
                   </button>
                 ) : (

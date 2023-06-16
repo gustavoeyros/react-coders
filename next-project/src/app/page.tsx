@@ -1,5 +1,6 @@
 "use client";
 
+import Button from "@/components/Button";
 import Layout from "@/components/Layout";
 import Table from "@/components/Table";
 import Client from "@/core/Client";
@@ -16,10 +17,23 @@ export default function Home() {
     console.log(client.name);
   };
 
+  const deletedClient = (client: Client) => {
+    console.log(client.name);
+  };
+
   return (
     <div className="flex h-screen justify-center items-center bg-gradient-to-r from-blue-500 to-purple-500">
-      <Layout title="Título!">
-        <Table clients={clients} selectedClient={selectedClient} />
+      <Layout title="Title!">
+        <div className="flex justify-end">
+          <Button className="mb-4" color="green">
+            New Client
+          </Button>
+        </div>
+        <Table
+          clients={clients}
+          selectedClient={selectedClient}
+          deletedClient={deletedClient}
+        />
       </Layout>
     </div>
   );
