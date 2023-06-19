@@ -4,43 +4,23 @@ import Button from "@/components/Button";
 import Form from "@/components/Form";
 import Layout from "@/components/Layout";
 import Table from "@/components/Table";
-import Client from "@/core/Client";
-import { useState } from "react";
-
-const clients = [
-  new Client("Gusta", 18, "1"),
-  new Client("José", 18, "2"),
-  new Client("Alex", 18, "3"),
-  new Client("Pedro", 18, "4"),
-];
+import useClients from "@/hooks/useClients";
 
 export default function Home() {
-  const [client, setClient] = useState<Client>(Client.empty());
-  const [visible, setVisible] = useState<"table" | "form">("table");
-
-  const selectedClient = (client: Client) => {
-    setClient(client);
-    setVisible("form");
-  };
-
-  const deletedClient = (client: Client) => {
-    console.log(client.name);
-  };
-
-  const saveClient = (client: Client) => {
-    console.log(client);
-    setVisible("table");
-  };
-
-  const newClient = () => {
-    setClient(Client.empty());
-    setVisible("form");
-  };
-
+  const {
+    selectedClient,
+    deletedClient,
+    client,
+    clients,
+    newClient,
+    saveClient,
+    tableVisible,
+    showTable,
+  } = useClients();
   return (
     <div className="flex h-screen justify-center items-center bg-gradient-to-r from-blue-500 to-purple-500">
       <Layout title="Title!">
-        {visible === "table" ? (
+        {tableVisible ? (
           <>
             <div className="flex justify-end">
               <Button onClick={newClient} className="mb-4" color="green">
@@ -57,7 +37,7 @@ export default function Home() {
           <Form
             client={client}
             changeClient={saveClient}
-            canceled={() => setVisible("table")}
+            canceled={() => showTable()}
           />
         )}
       </Layout>
