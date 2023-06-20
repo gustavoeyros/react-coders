@@ -3,10 +3,10 @@ import { Request, Response } from 'express'
 
 export default class TodoController {
     static async newTodo(req: Request, res: Response){
-       console.log(req.body)
+       const {description, done} = req.body
         const todo = new Todo({
-            description: "teste",
-            done: true
+            description,
+            done
         })
         try {
             await todo.save()
