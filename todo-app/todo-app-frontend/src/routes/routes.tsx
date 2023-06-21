@@ -7,6 +7,7 @@ const RoutesManager = () => {
     <Routes>
       <Route path="/about" element={<About />} />
       <Route path="/tasks" element={<Todo />} />
+      <Route path="/" element={<Todo />} />
     </Routes>
   );
 };
