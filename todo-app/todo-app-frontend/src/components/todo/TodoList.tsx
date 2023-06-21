@@ -49,6 +49,7 @@ const TodoList = ({
       <thead>
         <tr>
           <th>Description</th>
+          <th>Actions</th>
         </tr>
       </thead>
       <tbody>{renderRows()}</tbody>

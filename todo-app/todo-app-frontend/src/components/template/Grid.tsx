@@ -18,7 +18,7 @@ const Grid = ({ cols, children }: IGridProps) => {
 
   const gridClasses = toCssClasses(cols || "12");
 
-  return <div className={gridClasses}>{children}</div>;
+  return <div className={`${gridClasses} d-flex mx-1 gap-2`}>{children}</div>;
 };
 
 export default Grid;

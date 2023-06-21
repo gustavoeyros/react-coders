@@ -17,12 +17,24 @@ export default class TodoController {
 
   static async getAll(req: Request, res: Response) {
     try {
-      const todos = await Todo.find();
+      const { description } = req.query;
+      let todos;
+  
+      if (description && typeof description === 'string') {
+        const regex = new RegExp(description, 'i'); 
+        todos = await Todo.find({ description: regex });
+      } else {
+        todos = await Todo.find();
+      }
+  
       res.status(200).json(todos);
     } catch (error) {
       res.status(500).json({ message: 'Internal server error' });
     }
   }
+  
+  
+  
 
   static async deleteTodo(req: Request, res: Response) {
     const { id } = req.params;

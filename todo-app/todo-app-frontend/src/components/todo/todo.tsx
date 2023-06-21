@@ -23,6 +23,12 @@ const Todo = () => {
       .then((res) => setInput({ ...input, description: "", list: res.data }));
   };
 
+  const search = (description: string) => {
+    axios
+      .get(`${URL}?sort=-createdAt&description=${input.description}`)
+      .then((res) => setInput({ ...input, description, list: res.data }));
+  };
+
   const handleAdd = () => {
     const description = input.description;
     axios.post(URL, { description }).then(() => refresh());
@@ -33,28 +39,42 @@ const Todo = () => {
   };
 
   const handleRemove = (id: string) => {
-    axios.delete(`${URL}/${id}`).then(() => refresh());
+    axios.delete(`${URL}/${id}`).then(() => search(input.description));
   };
 
   const handleMarkAsDone = (id: string) => {
-    axios.put(`${URL}/${id}`, { done: true }).then(() => refresh());
+    axios
+      .put(`${URL}/${id}`, { done: true })
+      .then(() => search(input.description));
   };
 
   const handleMarkAsPending = (id: string) => {
-    axios.put(`${URL}/${id}`, { done: false }).then(() => refresh());
+    axios
+      .put(`${URL}/${id}`, { done: false })
+      .then(() => search(input.description));
+  };
+
+  const handleSearch = () => {
+    search(input.description);
+  };
+
+  const handleClear = () => {
+    refresh();
   };
 
   useEffect(() => {
-    refresh();
+    search(input.description);
   }, []);
 
   return (
     <div>
       <PageHeader name="Tasks" small="Register" />
       <TodoForm
+        handleSearch={handleSearch}
         handleAdd={handleAdd}
         handleChange={handleChange}
         description={input.description}
+        handleClear={handleClear}
       />
       <TodoList
         handleMarkAsPending={handleMarkAsPending}
