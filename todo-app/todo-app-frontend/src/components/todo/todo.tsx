@@ -73,14 +73,12 @@ const Todo = () => {
         handleSearch={handleSearch}
         handleAdd={handleAdd}
         handleChange={handleChange}
-        description={input.description}
         handleClear={handleClear}
       />
       <TodoList
         handleMarkAsPending={handleMarkAsPending}
         handleMarkAsDone={handleMarkAsDone}
         handleRemove={handleRemove}
-        list={input.list}
       />
     </div>
   );

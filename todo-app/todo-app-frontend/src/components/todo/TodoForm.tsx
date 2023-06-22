@@ -1,5 +1,9 @@
 import Grid from "../template/Grid";
 import IconButton from "../template/IconButton";
+import { bindActionCreators } from "redux";
+import { changeDescription, refresh } from "./todoAction";
+import { connect } from "react-redux";
+import { useEffect } from "react";
 
 interface ITodoFormProps {
   handleAdd: () => void;
@@ -7,22 +11,37 @@ interface ITodoFormProps {
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleSearch: () => void;
   handleClear: () => void;
+  changeDescription: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  refresh: () => void;
+}
+
+interface IRedux {
+  todo: {
+    description: string;
+    list: [{ description: string; _id: string; done?: boolean }];
+  };
 }
 
 const TodoForm = ({
   handleAdd,
   description,
-  handleChange,
   handleSearch,
   handleClear,
+  changeDescription,
+  refresh,
 }: ITodoFormProps) => {
   const keyHandler = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key == "Enter") {
-      e.shiftKey ? handleSearch() : handleAdd();
+      e.shiftKey ? refresh() : handleAdd();
     } else if (e.key === "Escape") {
       handleClear();
     }
   };
+
+  useEffect(() => {
+    refresh();
+  }, []);
+
   return (
     <div role="form" className="todoForm d-flex">
       <Grid cols="12 9 10">
@@ -31,7 +50,7 @@ const TodoForm = ({
           id="description"
           className="form-control"
           placeholder="Add task"
-          onChange={handleChange}
+          onChange={changeDescription}
           onKeyUp={keyHandler}
           value={description}
         />
@@ -46,4 +65,11 @@ const TodoForm = ({
   );
 };
 
-export default TodoForm;
+const mapStateToProps = (state: IRedux) => ({
+  description: state.todo.description,
+});
+
+const mapDispatchToProps = (dispatch: any) =>
+  bindActionCreators({ changeDescription, refresh }, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(TodoForm);

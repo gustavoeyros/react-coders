@@ -1,10 +1,18 @@
 import IconButton from "../template/IconButton";
+import { connect } from "react-redux";
 
 interface ITodoListProps {
   list: [{ description: string; _id: string; done?: boolean }];
   handleRemove: (id: string) => void;
   handleMarkAsDone: (id: string) => void;
   handleMarkAsPending: (id: string) => void;
+}
+
+interface IRedux {
+  todo: {
+    description: string;
+    list: [{ description: string; _id: string; done?: boolean }];
+  };
 }
 
 const TodoList = ({
@@ -57,4 +65,6 @@ const TodoList = ({
   );
 };
 
-export default TodoList;
+const mapStateToProps = (state: IRedux) => ({ list: state.todo.list });
+
+export default connect(mapStateToProps)(TodoList);
