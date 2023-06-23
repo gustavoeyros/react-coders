@@ -1,11 +1,16 @@
 import IconButton from "../template/IconButton";
 import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import { markAsDone, markAsPending, remove } from "./todoAction";
 
 interface ITodoListProps {
   list: [{ description: string; _id: string; done?: boolean }];
   handleRemove: (id: string) => void;
   handleMarkAsDone: (id: string) => void;
   handleMarkAsPending: (id: string) => void;
+  markAsDone: (todo: ITodo) => void;
+  markAsPending: (todo: ITodo) => void;
+  remove: (todo: ITodo) => void;
 }
 
 interface IRedux {
@@ -15,15 +20,22 @@ interface IRedux {
   };
 }
 
+interface ITodo {
+  description: string;
+  _id: string;
+  done?: boolean | undefined;
+}
+
 const TodoList = ({
   list,
   handleRemove,
-  handleMarkAsDone,
-  handleMarkAsPending,
+  markAsDone,
+  markAsPending,
+  remove,
 }: ITodoListProps) => {
   const renderRows = () => {
     const formattedList = list || [];
-    return formattedList.map((todo) => (
+    return formattedList.map((todo: ITodo) => (
       <tr key={todo._id}>
         <td className={`${todo.done ? "markedAsDone" : ""}`}>
           {todo.description}
@@ -33,19 +45,19 @@ const TodoList = ({
           <IconButton
             style="success"
             icon="check"
-            onClick={() => handleMarkAsDone(todo._id)}
+            onClick={() => markAsDone(todo)}
             hide={todo.done}
           />
           <IconButton
             style="warning"
             icon="undo"
-            onClick={() => handleMarkAsPending(todo._id)}
+            onClick={() => markAsPending(todo)}
             hide={!todo.done}
           />
           <IconButton
             style="danger"
             icon="trash-o"
-            onClick={() => handleRemove(todo._id)}
+            onClick={() => remove(todo)}
             hide={!todo.done}
           />
         </td>
@@ -66,5 +78,6 @@ const TodoList = ({
 };
 
 const mapStateToProps = (state: IRedux) => ({ list: state.todo.list });
-
-export default connect(mapStateToProps)(TodoList);
+const mapDispatchToProps = (dispatch: any) =>
+  bindActionCreators({ markAsDone, markAsPending, remove }, dispatch);
+export default connect(mapStateToProps, mapDispatchToProps)(TodoList);
