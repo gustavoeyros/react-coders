@@ -1,0 +1,15 @@
+.sidebar{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    background-color: #544949;
+    color: white;
+    padding: 15px;
+    gap: 15px;
+    height: 100%;
+    width: 150px;
+}
+
+.sidebar span{
+    cursor: pointer;
+}
