@@ -2,7 +2,7 @@ import "./index.css";
 
 interface ICardProps {
   color: string;
-  valueProps: string;
+  valueProps: number | string;
   description: string;
 }
 

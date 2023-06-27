@@ -1,10 +1,12 @@
+import { useNavigate } from "react-router-dom";
 import "./index.css";
 
 const Sidebar = () => {
+  const navigate = useNavigate();
   return (
     <div className="sidebar">
-      <span>Dashboard</span>
-      <span>Cadastro</span>
+      <span onClick={() => navigate("/")}>Dashboard</span>
+      <span onClick={() => navigate("/register")}>Cadastro</span>
     </div>
   );
 };

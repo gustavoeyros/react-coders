@@ -1,8 +1,9 @@
 import "./App.css";
-import Content from "./components/Content";
+
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 import Sidebar from "./components/Sidebar";
+import RoutesManager from "./routes";
 
 function App() {
   return (
@@ -10,7 +11,7 @@ function App() {
       <Header />
       <div className="container__content">
         <Sidebar />
-        <Content />
+        <RoutesManager />
       </div>
       <Footer />
     </div>

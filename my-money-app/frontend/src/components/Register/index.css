@@ -1,0 +1,14 @@
+.tab-header{
+    display: flex;
+    background-color: white;
+    list-style: none;
+    padding: 15px;
+}
+.tab-header ul {
+    display: flex;
+    list-style: none;
+    gap: 30px;
+}
+.tab-header ul li{
+    cursor: pointer;
+}

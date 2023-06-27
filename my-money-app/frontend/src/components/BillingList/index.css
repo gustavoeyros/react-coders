@@ -1,0 +1,16 @@
+.table-content thead{
+    font-weight: bold;
+}
+
+.table-content tbody{
+    padding: 15px;
+}
+
+.tab-actions{
+    display: flex;
+    gap: 10px;
+}
+
+.tab-actions span{
+    cursor: pointer;
+}
