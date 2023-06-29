@@ -1,8 +1,12 @@
-import BillingRoutes from "../../routes/billingRoutes";
-import BillingList from "../BillingList";
+import { useNavigate } from "react-router-dom";
 import "./index.css";
 
-const Register = () => {
+interface IRegisterProps {
+  children: React.ReactNode;
+}
+
+const Register = ({ children }: IRegisterProps) => {
+  const navigate = useNavigate();
   return (
     <div className="content">
       <div className="title">
@@ -13,11 +17,11 @@ const Register = () => {
 
       <div className="tab-header">
         <ul>
-          <li>Listar</li>
-          <li>Incluir</li>
+          <li onClick={() => navigate("/register")}>Listar</li>
+          <li onClick={() => navigate("add")}>Incluir</li>
         </ul>
       </div>
-      <BillingRoutes />
+      {children}
     </div>
   );
 };
