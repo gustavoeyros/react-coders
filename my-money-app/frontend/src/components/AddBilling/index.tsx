@@ -20,6 +20,8 @@ const AddBilling = () => {
     },
   ]);
 
+  const [lastCredit, setLastCredit] = useState<ICredit | null>(null);
+
   const sendValues = () => {
     const data = {
       name: name,
@@ -38,6 +40,37 @@ const AddBilling = () => {
 
   const addCredit = () => {
     setCredits([...credits, { name: "", value: "" }]);
+  };
+
+  const cloneCredit = (index: number) => {
+    const clonedCredit = { ...credits[index] };
+    setCredits((prevCredits) => {
+      const newCredits = [...prevCredits];
+      newCredits.splice(index + 1, 0, clonedCredit);
+      return newCredits;
+    });
+  };
+
+  const deleteCredit = (index: number) => {
+    setCredits((prevCredits) => prevCredits.filter((_, i) => i !== index));
+  };
+
+  const handleCreditNameChange = (index: number, value: string) => {
+    setCredits((prevCredits) =>
+      prevCredits.map((prevCredit, i) =>
+        i === index ? { ...prevCredit, name: value } : prevCredit
+      )
+    );
+    setLastCredit({ ...lastCredit, name: value });
+  };
+
+  const handleCreditValueChange = (index: number, value: string) => {
+    setCredits((prevCredits) =>
+      prevCredits.map((prevCredit, i) =>
+        i === index ? { ...prevCredit, value: value } : prevCredit
+      )
+    );
+    setLastCredit({ ...lastCredit, value: value });
   };
 
   return (
@@ -80,15 +113,7 @@ const AddBilling = () => {
                 placeholder="Informe o nome"
                 type="string"
                 value={credit.name}
-                onChange={(e) =>
-                  setCredits((prevCredits) =>
-                    prevCredits.map((prevCredit, i) =>
-                      i === index
-                        ? { ...prevCredit, name: e.target.value }
-                        : prevCredit
-                    )
-                  )
-                }
+                onChange={(e) => handleCreditNameChange(index, e.target.value)}
               />
               <InputLabel
                 id={`creditValue_${index}`}
@@ -96,21 +121,15 @@ const AddBilling = () => {
                 placeholder="Informe o valor"
                 type="number"
                 value={credit.value}
-                onChange={(e) =>
-                  setCredits((prevCredits) =>
-                    prevCredits.map((prevCredit, i) =>
-                      i === index
-                        ? { ...prevCredit, value: e.target.value }
-                        : prevCredit
-                    )
-                  )
-                }
+                onChange={(e) => handleCreditValueChange(index, e.target.value)}
               />
 
               <div className="container-add-actions">
                 <span onClick={addCredit}>Adicionar</span>
-                <span>Clonar</span>
-                <span>Excluir</span>
+                <span onClick={() => cloneCredit(index)}>Clonar</span>
+                <span onClick={() => index !== 0 && deleteCredit(index)}>
+                  Excluir
+                </span>
               </div>
             </div>
           ))}
