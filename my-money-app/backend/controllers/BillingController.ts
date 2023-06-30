@@ -16,6 +16,7 @@ export default class BillingController {
           res.status(201).json({ message: 'New billing added!', todo });
         } catch (error) {
           res.status(500).json({ message: 'Internal server error' });
+          console.log(error)
         }
       }
     
@@ -32,6 +33,20 @@ export default class BillingController {
           }
       
           res.status(200).json(todos);
+        } catch (error) {
+          res.status(500).json({ message: 'Internal server error' });
+        }
+      }
+      
+
+      static async getBillingById(req: Request, res: Response) {
+        const { id } = req.params;
+        try {
+          const todo = await BillingSchema.findById(id);
+          if (!todo) {
+            return res.status(404).json({ message: 'Billing not found' });
+          }
+          res.status(200).json(todo);
         } catch (error) {
           res.status(500).json({ message: 'Internal server error' });
         }

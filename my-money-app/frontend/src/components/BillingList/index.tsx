@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import "./index.css";
 
@@ -11,6 +12,7 @@ interface IDataFetch {
 }
 
 const BillingList = () => {
+  const navigate = useNavigate();
   const [list, setList] = useState<IDataFetch[]>([]);
   const fetchList = () => {
     fetch("http://localhost:3000/api/billing", {
@@ -53,7 +55,9 @@ const BillingList = () => {
             <td>{item.month}</td>
             <td>{item.year}</td>
             <div className="tab-actions">
-              <span>Editar</span>
+              <span onClick={() => navigate(`/register/edit/${item._id}`)}>
+                Editar
+              </span>
               <span onClick={() => removeRegister(item._id)}>Excluir</span>
             </div>
           </tr>

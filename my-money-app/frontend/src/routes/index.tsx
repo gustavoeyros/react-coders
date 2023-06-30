@@ -3,6 +3,7 @@ import Content from "../components/Content";
 import Register from "../components/Register";
 import AddBilling from "../components/AddBilling";
 import BillingList from "../components/BillingList";
+import EditBilling from "../components/EditBilling";
 
 const RoutesManager = () => {
   return (
@@ -21,6 +22,15 @@ const RoutesManager = () => {
         element={
           <Register>
             <AddBilling />
+          </Register>
+        }
+      />
+
+      <Route
+        path="/register/edit/:id"
+        element={
+          <Register>
+            <EditBilling />
           </Register>
         }
       />

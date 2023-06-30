@@ -1,25 +1,50 @@
-import axios from "axios";
-import Button from "../Button";
 import InputLabel from "../InputLabel";
-import "./index.css";
-import { useRef } from "react";
+import Button from "../Button";
+import { useEffect, useRef, useState } from "react";
+import axios from "axios";
+import { useParams } from "react-router-dom";
 
-const AddBilling = () => {
+interface IBilling {
+  _id: string;
+  name: string;
+  year: number;
+  month: number;
+  debts: [];
+  credits: [];
+}
+
+const EditBilling = () => {
+  const { id } = useParams();
   const name = useRef<HTMLInputElement>(null);
   const month = useRef<HTMLInputElement>(null);
   const year = useRef<HTMLInputElement>(null);
+  const [billing, setBilling] = useState<IBilling>();
 
-  const sendValues = () => {
+  const getBillingById = () => {
+    axios
+      .get(`http://localhost:3000/api/billing/${id}`)
+      .then((res) => setBilling(res.data));
+  };
+
+  const sendValues = async () => {
     const data = {
       name: name.current?.value,
       month: month.current?.value,
       year: year.current?.value,
     };
 
-    axios
-      .post("http://localhost:3000/api/billing", data)
+    await axios
+      .put(`http://localhost:3000/api/billing/${id}`, data)
       .then((res) => console.log(res));
   };
+
+  useEffect(() => {
+    getBillingById();
+  }, []);
+
+  if (!billing) {
+    return <div>Loading...</div>;
+  }
   return (
     <>
       <div className="container-add">
@@ -29,6 +54,7 @@ const AddBilling = () => {
           placeholder="Informe o nome"
           type="text"
           ref={name}
+          value={billing.name}
         />
         <InputLabel
           id="month"
@@ -36,6 +62,7 @@ const AddBilling = () => {
           placeholder="Informe o mês"
           type="number"
           ref={month}
+          value={billing.month}
         />
         <InputLabel
           id="year"
@@ -43,11 +70,12 @@ const AddBilling = () => {
           placeholder="Informe o ano"
           type="number"
           ref={year}
+          value={billing.year}
         />
       </div>
-      <Button text="Submit" onClick={sendValues} />
+      <Button text="Edit" onClick={sendValues} />
     </>
   );
 };
 
-export default AddBilling;
+export default EditBilling;

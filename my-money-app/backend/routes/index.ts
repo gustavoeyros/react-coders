@@ -8,6 +8,7 @@ router.use(express.json());
 router.use(cors());
 
 router.get('/billing', BillingController.getAll);
+router.get('/billing/:id', BillingController.getBillingById);
 router.post('/billing', BillingController.newbilling);
 router.get('/summary', BillingController.summaryBilling)
 router.get('/count', BillingController.countBilling)

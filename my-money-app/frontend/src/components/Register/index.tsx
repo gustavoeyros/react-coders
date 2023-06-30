@@ -1,3 +1,4 @@
+import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import "./index.css";
 
@@ -6,6 +7,7 @@ interface IRegisterProps {
 }
 
 const Register = ({ children }: IRegisterProps) => {
+  const routePath = useLocation().pathname;
   const navigate = useNavigate();
   return (
     <div className="content">
@@ -19,6 +21,7 @@ const Register = ({ children }: IRegisterProps) => {
         <ul>
           <li onClick={() => navigate("/register")}>Listar</li>
           <li onClick={() => navigate("add")}>Incluir</li>
+          {routePath.includes("/register/edit") && <li>Editar</li>}
         </ul>
       </div>
       {children}
