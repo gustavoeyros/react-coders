@@ -1,4 +1,4 @@
-import { forwardRef } from "react";
+import { ForwardedRef, forwardRef } from "react";
 import "./index.css";
 
 interface IInputLabelProps {
@@ -8,10 +8,14 @@ interface IInputLabelProps {
   description: string;
   ref?: React.RefObject<HTMLInputElement>;
   value?: string | number;
+  onChange?: (e: any) => void;
 }
 
 const InputLabel = forwardRef(
-  ({ id, placeholder, type, description, value }: IInputLabelProps, ref) => {
+  (
+    { id, placeholder, type, description, value, onChange }: IInputLabelProps,
+    ref: ForwardedRef<HTMLInputElement>
+  ) => {
     return (
       <div className="label-input">
         <label htmlFor="name">{description}</label>
@@ -22,6 +26,7 @@ const InputLabel = forwardRef(
           placeholder={placeholder}
           ref={ref}
           defaultValue={value}
+          onChange={onChange}
         />
       </div>
     );

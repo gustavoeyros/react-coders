@@ -1,4 +1,31 @@
 .container-add{
     display: flex;
+    align-items: center;
     gap: 15px;
+}
+
+.container-credits__global{
+    display: flex;
+    gap: 15px;
+    flex-direction: column;
+}
+
+.container-credits__global span{
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+.container-credits{
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    gap: 15px;
+}
+
+.container-add-actions{
+    display: flex;
+    gap: 20px;
+}
+.container-add-actions span{
+    cursor: pointer;
+    font-size: 1.2rem;
 }
