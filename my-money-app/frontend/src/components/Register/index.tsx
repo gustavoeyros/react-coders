@@ -20,7 +20,7 @@ const Register = ({ children }: IRegisterProps) => {
       <div className="tab-header">
         <ul>
           <li onClick={() => navigate("/register")}>Listar</li>
-          <li onClick={() => navigate("add")}>Incluir</li>
+          <li onClick={() => navigate("/register/add")}>Incluir</li>
           {routePath.includes("/register/edit") && <li>Editar</li>}
         </ul>
       </div>
